@@ -48,3 +48,78 @@ Tips for experimentation:
 - Increase `--block_size` to let the model see longer contexts.
 - When you change `embed_size` or `n_heads`, keep `embed_size % n_heads == 0`.
 
+# Small GPT Instruction-Finetuning Project
+
+This project implements a **small GPT model** trained on instruction-response data. It supports **fine-tuning** on your custom instruction dataset.
+
+---
+
+## Features
+
+- Character-level GPT model
+- Instruction-based dataset handling
+- Fine-tuning on small datasets
+- Sample text generation
+- Checkpoint saving
+
+---
+
+## Project Structure
+
+GPT_Creating_Model/
+├─ data/
+│ └─ instructions.jsonl # Sample instruction-response dataset
+├─ checkpoints/ # Saved model checkpoints
+├─ finetune_gpt_full.py # Main script: data prep, training, fine-tuning, generation
+└─ README.md
+
+yaml
+Copy code
+
+---
+
+## How to Run
+
+1. **Prepare dataset**  
+   - Each instruction-response example should be in JSONL format with `messages` and concatenated `text`.
+
+2. **Run training & fine-tuning**:
+
+```bash
+python finetune_gpt_full.py
+Check output
+
+Epoch losses will be printed.
+
+Sample generated text after each epoch.
+
+Checkpoints saved in checkpoints/.
+
+Test model:
+
+python
+Copy code
+prompt = "<|user|>Explain overfitting in simple words.<|assistant|>"
+generated_text = generate(model, tokenizer, prompt)
+print(generated_text)
+Hyperparameters
+n_layers: Number of transformer blocks (default 4)
+
+n_heads: Number of attention heads (default 4)
+
+n_embd: Embedding dimension (default 192)
+
+block_size: Sequence length (default 256)
+
+batch_size: 8
+
+lr: Learning rate 3e-4
+
+epochs: 10
+
+Notes
+This model is small and suitable for learning and experimentation.
+
+For larger datasets or better performance, increase n_layers, n_heads, n_embd and block_size and use GPU for training.
+
+
